@@ -1,5 +1,7 @@
 import { model, Schema } from "mongoose";
-
+import { gender } from "../common/enum/gender.enum";
+import { role } from "../common/enum/role.enum";
+const noInfo = "!no data enter"
 const userschema= new Schema({
     First_Name :{
         type : String,
@@ -23,8 +25,55 @@ const userschema= new Schema({
         maxlength :50,
         require : true,
         unique : true
-     }
-
+     },
+     Email :{
+        type : String,
+        tirm : true ,//بيشيل المسافات في الاسم
+        require : true,
+        unique : true
+     },
+      Password :{
+        type : String,
+        tirm : true ,//بيشيل المسافات في الاسم
+        minlength : 6,
+        maxlength :8,
+        require : true,
+      },
+      Address :{
+        type : Text,
+        trime : true,
+        default : noInfo,
+      },
+      phone :{
+        type : String,
+        minlength: 11,
+        maxlength : 11,
+        required : true,
+      },
+      Age :{
+        type :Number,
+        min : 10,
+        max : 100,
+        default : noInfo,
+      },
+      profile_image :{
+        type : text,
+        default : noInfo,
+      },
+      confirmEmail :{
+        type : Boolean,
+        defualt : false
+      },
+      gender:{
+        type: String,
+        enum : [Object.values(gender)], //هنا مسؤليتها انها تطلع كل الاختيارات اللي انا حطيتها
+        default: gender.male
+      },
+      Role :{
+        type: String,
+        enum:[Object.values(role)],
+        defualt: role.USER
+      }
 })
 const userModel = model("User",userschema)
 export default userModel
