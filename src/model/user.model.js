@@ -38,6 +38,9 @@ const userschema= new Schema({
         minlength : 6,
         maxlength :8,
         require : true,
+        get(){ //بطبع الداتا بالشكل اللي انا عايزه
+          return "$$$$$$"
+        }
       },
       Address :{
         type : Text,
@@ -74,6 +77,20 @@ const userschema= new Schema({
         enum:[Object.values(role)],
         defualt: role.USER
       }
+},
+   {
+        timestamps:true,//crated at, updated at
+        strict:true,//بتخليه يبعت اللي موجود في ال schema فقط
+        strictQuery:true ,//هنا عشان نحل مشكلة ال update and find
+        versionKey:"version", //مبتسمحش لحد يشتغل علي schema مختلفة عن ديه
+        collection:"messagedata",
+        toJSON:{ virtuals: true, getters:true},
+        toObject: {virtuals:true, getters:true}
+    }
+)
+userschema.virtual("fullname").get(function(){
+  return $(this.First_Name)+" "+$(this.Last_Name)
 })
+
 const userModel = model("User",userschema)
 export default userModel
