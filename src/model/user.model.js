@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
-import { gender } from "../common/enum/gender.enum";
-import { role } from "../common/enum/role.enum";
+import { gender } from "../common/enum/gender.enum.js";
+import { role } from "../common/enum/role.enum.js";
 const noInfo = "!no data enter"
 const userschema= new Schema({
     First_Name :{
@@ -43,7 +43,7 @@ const userschema= new Schema({
         }
       },
       Address :{
-        type : Text,
+        type : String,
         trime : true,
         default : noInfo,
       },
@@ -60,7 +60,7 @@ const userschema= new Schema({
         default : noInfo,
       },
       profile_image :{
-        type : text,
+        type : String,
         default : noInfo,
       },
       confirmEmail :{
@@ -69,12 +69,12 @@ const userschema= new Schema({
       },
       gender:{
         type: String,
-        enum : [Object.values(gender)], //هنا مسؤليتها انها تطلع كل الاختيارات اللي انا حطيتها
+        enum : Object.values(gender), //هنا مسؤليتها انها تطلع كل الاختيارات اللي انا حطيتها
         default: gender.male
       },
       Role :{
         type: String,
-        enum:[Object.values(role)],
+        enum:Object.values(role),
         defualt: role.USER
       }
 },
