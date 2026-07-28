@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { gender } from "../common/enum/gender.enum";
 import { role } from "../common/enum/role.enum";
-import {flag, message} from "../common/enum/flag"
+import {flag} from "../common/enum/flag.enum.js"
 
 const messageschema=new Schema({
     senderid :{
