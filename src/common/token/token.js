@@ -7,3 +7,13 @@ export const generateToken=({ payload, secretKey,option={
     } })=>{
     return jwt.sign(payload,secretKey,option)
     }
+    //verfiy toke
+    export const verfiyToken=({token,secretKey})=>{
+        return jwt.verify(token,secretKey)
+
+    }
+    //Decoded Token
+      export const decodedToken=(token)=>{
+        return jwt.decode(token)
+        
+    }
