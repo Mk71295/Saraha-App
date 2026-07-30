@@ -1,4 +1,7 @@
-import {getProfileService, login, signup, updateProfileService} from "../auth/auth.service.js"
+import {getProfileService, login, signup, updateProfileService , Getprofiles ,forgetPassword } from "../auth/auth.service.js"
+//import {loginSchema} from "./auth.valdition.js"
+//import joi from "joi"
+// SIGN UP
 export const authController= async(req , res) =>{
     try {
         const userData= await signup(req.body)
@@ -13,9 +16,18 @@ export const authController= async(req , res) =>{
         })
     }
 }
+// LOGIN 
 export const loginController=async(req , res)=>{
     try {
         const loginUser = await login (req.body)
+// const { error, value } = loginSchema.validate(req.body);
+
+// if (error) {
+//   return res.status(400).json({
+//     message: "Error in Login",
+//     error: error.details[0].message
+//   });
+// }
         return res.status(200).json({
             message:"Welcome to our App",
             loginUser
@@ -29,6 +41,7 @@ export const loginController=async(req , res)=>{
         
     }
 }
+// GET PROFILE 
 export const getProfileController=async(req , res)=>{
     try {
         const loginUser = await getProfileService (req.user.id)
@@ -45,6 +58,7 @@ export const getProfileController=async(req , res)=>{
         
     }
 }
+// UPDATE PROFILE
     export const UpdateProfileController=async(req , res)=>{
     try {
         const updateUser = await updateProfileService (req.user.id , req.body)
@@ -55,6 +69,40 @@ export const getProfileController=async(req , res)=>{
     } catch (error) {
         return res.status(500).json({
             message :"Data not updated",
+            error:error.message
+        })
+        
+    }
+}
+// GET All PROFILE 
+export const getAllProfilesController=async(req , res)=>{
+    try {
+        const login = await Getprofiles()
+        return res.status(200).json({
+            message:"Welcome",
+            login
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            message :"Error in email or password",
+            error:error.message
+        })
+        
+    }
+}
+
+export const forgetPasswordController=async(req , res)=>{
+    try {
+        const user = await forgetPassword(req.email)
+        return res.status(200).json({
+            message:"Email Sent",
+            user
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            message :"Email not sent",
             error:error.message
         })
         
